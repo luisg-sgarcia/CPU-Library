@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/luisg-sgarcia/cpu-library#readme",
   "dependencies": {
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "materialize-css": "^1.0.0-rc.2"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0"

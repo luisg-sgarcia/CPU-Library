@@ -1,0 +1,21 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+  margin-top: 20px;
+}
+
+.brand-logo {
+  color: white !important;
+  font-weight: bold;
+}
+
+
+footer {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

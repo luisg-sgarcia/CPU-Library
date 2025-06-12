@@ -1,11 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU Library</title>
+
+  <!-- Google Material Icons (necessário para ícones como chevron_left) -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
+
+  <!-- Seu CSS personalizado -->
+  <link rel="stylesheet" href="../assets/resources/styles/style.css">
 </head>
+
+
 <body>
-    
+  <header>
+    <nav class="nav-wrapper" style="background-color: #212529;">
+      <div class="container">
+        <a href="#" class="brand-logo">CPU Library</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="input-field">
+      <input type="text" id="search" placeholder="Pesquisar processadores..." />
+    </div>
+
+    <table id="cpu-table" class="highlight centered responsive-table">
+      <thead>
+        <tr>
+          <th>Modelo</th>
+          <th>Marca</th>
+          <th>Frequência</th>
+          <th>Núcleos</th>
+          <th>Threads</th>
+          <th>Socket</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <ul class="pagination center-align" id="pagination"></ul>
+  </main>
+
+  <footer class="page-footer" style="background-color: #212529; margin-top: 50px;">
+    <div class="footer-copyright">
+      <div class="container center-align">
+        © 2025 CPU Library - Todos os direitos reservados
+      </div>
+    </div>
+  </footer>
+
+<!-- Materialize JS -->
+<script src="../node_modules/materialize-css/dist/js/materialize.min.js"></script>
+
+<!-- Scripts da aplicação -->
+<script src="./model/processors.js"></script>
+<script src="./service/render.js"></script>
+
 </body>
 </html>
