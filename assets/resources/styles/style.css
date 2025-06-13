@@ -9,13 +9,12 @@ main {
   margin-top: 20px;
 }
 
-.brand-logo {
-  color: white !important;
-  font-weight: bold;
-}
-
-
 footer {
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.brand-logo {
+  color: white !important;
+  font-weight: bold;
 }

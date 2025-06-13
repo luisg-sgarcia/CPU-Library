@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro de Processadores - CPU Library</title>
+  <link rel="stylesheet" href="/node_modules/materialize-css/dist/css/materialize.min.css" />
+  <link rel="stylesheet" href="/assets/resources/styles/style.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main class="container">
+    <h4 class="center-align">Cadastrar Novo Processador</h4>
+
+    <form id="cpu-form" class="col s12">
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="modelo" type="text" required />
+          <label for="modelo">Modelo</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <input id="marca" type="text" required />
+          <label for="marca">Marca</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="frequencia" type="text" required />
+          <label for="frequencia">Frequência (ex: 3.5GHz)</label>
+        </div>
+        <div class="input-field col s6 m3">
+          <input id="nucleos" type="number" required min="1" />
+          <label for="nucleos">Núcleos</label>
+        </div>
+        <div class="input-field col s6 m3">
+          <input id="threads" type="number" required min="1" />
+          <label for="threads">Threads</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="socket" type="text" required />
+          <label for="socket">Socket</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <button class="btn waves-effect waves-light" type="submit">
+            Cadastrar
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <div id="footer"></div>
+
+  <!-- Scripts -->
+  <script src="/node_modules/materialize-css/dist/js/materialize.min.js"></script>
+  <script src="/app/service/loader.js"></script>
+  <script src="./cadastro-processadores.js"></script>
+</body>
+</html>
