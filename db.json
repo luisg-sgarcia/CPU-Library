@@ -1,0 +1,58 @@
+{
+  "processadores": [
+    {
+      "id": "1",
+      "modelo": "Intel Core i9-13900K",
+      "marca": "Intel",
+      "frequencia": "3.0 GHz",
+      "nucleos": 24,
+      "threads": 32,
+      "socket": "LGA 1700"
+    },
+    {
+      "id": "2",
+      "modelo": "AMD Ryzen 9 7950X",
+      "marca": "AMD",
+      "frequencia": "4.5 GHz",
+      "nucleos": 16,
+      "threads": 32,
+      "socket": "AM5"
+    },
+    {
+      "id": "3",
+      "modelo": "Intel Core i7-12700K",
+      "marca": "Intel",
+      "frequencia": "3.6 GHz",
+      "nucleos": 12,
+      "threads": 20,
+      "socket": "LGA 1700"
+    },
+    {
+      "id": "4",
+      "modelo": "AMD Ryzen 7 7700X",
+      "marca": "AMD",
+      "frequencia": "4.5 GHz",
+      "nucleos": 8,
+      "threads": 16,
+      "socket": "AM5"
+    },
+    {
+      "id": "5",
+      "modelo": "Intel Core i5-12400F",
+      "marca": "Intel",
+      "frequencia": "2.5 GHz",
+      "nucleos": 6,
+      "threads": 12,
+      "socket": "LGA 1700"
+    },
+    {
+      "id": "6",
+      "modelo": "AMD Ryzen 5 5500",
+      "marca": "AMD",
+      "frequencia": "4.2 GHz",
+      "nucleos": 6,
+      "threads": 12,
+      "socket": "AM4"
+    }
+  ]
+}

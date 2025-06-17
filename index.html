@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPU Library</title>
+  <link rel="stylesheet" href="/node_modules/materialize-css/dist/css/materialize.min.css" />
+  <link rel="stylesheet" href="/assets/resources/styles/style.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main class="container" id="catalogo">
+    <div class="input-field">
+      <input type="text" id="search" placeholder="Pesquisar processadores..." />
+    </div>
+
+    <table id="cpu-table" class="highlight centered responsive-table">
+      <thead>
+        <tr>
+          <th>Modelo</th>
+          <th>Marca</th>
+          <th>Frequência</th>
+          <th>Núcleos</th>
+          <th>Threads</th>
+          <th>Socket</th>
+          <th>Ações</th> </tr>
+      </thead>
+      <tbody>
+        </tbody>
+    </table>
+
+    <ul class="pagination center-align" id="pagination"></ul>
+  </main>
+
+  <div id="footer"></div>
+
+  <div id="editProcessorModal" class="modal">
+    <div class="modal-content">
+      <h4>Editar Processador</h4>
+      <form id="edit-cpu-form">
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input id="edit_modelo" type="text" required />
+            <label for="edit_modelo">Modelo</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <input id="edit_marca" type="text" required />
+            <label for="edit_marca">Marca</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input id="edit_frequencia" type="text" required />
+            <label for="edit_frequencia">Frequência (ex: 3.5GHz)</label>
+          </div>
+          <div class="input-field col s6 m3">
+            <input id="edit_nucleos" type="number" required min="1" />
+            <label for="edit_nucleos">Núcleos</label>
+          </div>
+          <div class="input-field col s6 m3">
+            <input id="edit_threads" type="number" required min="1" />
+            <label for="edit_threads">Threads</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="edit_socket" type="text" required />
+            <label for="edit_socket">Socket</label>
+          </div>
+        </div>
+        <input type="hidden" id="edit_processor_id"> </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+      <button class="btn waves-effect waves-light" type="submit" id="saveEditBtn">
+        Salvar
+        <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="/node_modules/materialize-css/dist/js/materialize.min.js"></script>
+  <script src="/app/service/render.js"></script>
+  <script src="/app/service/loader.js"></script>
+</body>
+</html>
