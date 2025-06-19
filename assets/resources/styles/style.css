@@ -17,4 +17,33 @@ footer {
 .brand-logo {
   color: white !important;
   font-weight: bold;
+  height: auto;
+}
+
+.brand-logo img {
+  height: 60px;
+  max-height: 100%;
+  width: auto;
+  padding: 5px 0;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 992px) {
+    .brand-logo img {
+        height: 50px;
+    }
+}
+
+nav .nav-wrapper {
+  display: flex;
+  align-items: center;
+  height: 70px;
+}
+
+.sidenav {
+    padding-top: 20px;
+}
+.sidenav li > a {
+    font-size: 1.2rem;
+    padding: 0 32px;
 }

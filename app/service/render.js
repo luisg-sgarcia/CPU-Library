@@ -3,13 +3,16 @@ let currentPage = 1;
 let allProcessors = [];
 let filteredProcessors = [];
 
-// Função para carregar processadores do JSON Server e renderizar a tabela
 function fetchProcessorsAndRender() {
     $.ajax({
-        url: 'http://localhost:3000/processadores', // Seu endpoint de API do JSON Server
+        url: 'http://localhost:3000/processadores',
         method: 'GET',
+        dataType: 'json',
         success: function(data) {
-            allProcessors = data;
+            allProcessors = data.map(proc => ({
+                ...proc,
+                id: String(proc.id)
+            }));
             filteredProcessors = allProcessors;
             currentPage = 1;
             renderTablePage(currentPage);
@@ -18,7 +21,7 @@ function fetchProcessorsAndRender() {
             console.error("Erro ao carregar processadores do servidor:", error);
             M.toast({ html: "Erro ao carregar processadores. Verifique o servidor.", classes: "red darken-2" });
             const tbody = document.querySelector("#cpu-table tbody");
-            tbody.innerHTML = `<tr><td colspan="7" class="center-align red-text">Não foi possível carregar os processadores. Verifique se o JSON Server está rodando.</td></tr>`; // Colspan ajustado
+            tbody.innerHTML = `<tr><td colspan="7" class="center-align red-text">Não foi possível carregar os processadores. Verifique se o JSON Server está rodando.</td></tr>`;
             renderPagination();
         }
     });
@@ -29,7 +32,7 @@ function renderTablePage(page) {
   tbody.innerHTML = "";
 
   if (filteredProcessors.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7" class="center-align">Nenhum processador encontrado.</td></tr>`; // Colspan ajustado
+    tbody.innerHTML = `<tr><td colspan="7" class="center-align">Nenhum processador encontrado.</td></tr>`;
     renderPagination();
     return;
   }
@@ -48,18 +51,17 @@ function renderTablePage(page) {
       <td>${proc.threads}</td>
       <td>${proc.socket}</td>
       <td>
-        <a class="btn-small waves-effect waves-light blue darken-1 edit-btn" data-id="${proc.id}"><i class="material-icons">edit</i></a>
-        <a class="btn-small waves-effect waves-light red darken-1 delete-btn" data-id="${proc.id}"><i class="material-icons">delete</i></a>
+        <a class="btn-small waves-effect waves-light blue darken-1 edit-btn" data-id="${String(proc.id)}"><i class="material-icons">edit</i></a>
+        <a class="btn-small waves-effect waves-light red darken-1 delete-btn" data-id="${String(proc.id)}"><i class="material-icons">delete</i></a>
+        <a class="btn-small waves-effect waves-light teal darken-1 detail-btn" data-id="${String(proc.id)}"><i class="material-icons">info</i></a>
       </td>
     `;
     tbody.appendChild(tr);
   });
 
-  // Inicializa o modal após a renderização da tabela
   const elems = document.querySelectorAll('.modal');
   M.Modal.init(elems);
 
-  // Adiciona os event listeners para os botões após eles serem criados
   addProcessorActionListeners();
 
   renderPagination();
@@ -109,50 +111,66 @@ function renderPagination() {
 document.getElementById("search").addEventListener("input", function () {
   const filter = this.value.toLowerCase();
   filteredProcessors = allProcessors.filter(proc =>
-    proc.modelo.toLowerCase().includes(filter) ||
-    proc.marca.toLowerCase().includes(filter) ||
-    proc.frequencia.toLowerCase().includes(filter) ||
-    proc.nucleos.toString().includes(filter) ||
-    proc.threads.toString().includes(filter) ||
-    proc.socket.toLowerCase().includes(filter)
+    String(proc.modelo || '').toLowerCase().includes(filter) ||
+    String(proc.marca || '').toLowerCase().includes(filter) ||
+    String(proc.frequencia || '').toLowerCase().includes(filter) ||
+    String(proc.nucleos || '').includes(filter) ||
+    String(proc.threads || '').includes(filter) ||
+    String(proc.socket || '').toLowerCase().includes(filter)
   );
   currentPage = 1;
   renderTablePage(currentPage);
 });
 
-// Exponha a função globalmente para que loader.js possa chamá-la
 window.fetchProcessorsAndRender = fetchProcessorsAndRender;
 
-// --- Lógica de Edição e Exclusão ---
-
 function addProcessorActionListeners() {
-    // Event listener para botões de Excluir
     document.querySelectorAll('.delete-btn').forEach(button => {
-        button.removeEventListener('click', handleDeleteClick); // Evita múltiplos listeners
+        button.removeEventListener('click', handleDeleteClick);
+    });
+    document.querySelectorAll('.edit-btn').forEach(button => {
+        button.removeEventListener('click', handleEditClick);
+    });
+    document.querySelectorAll('.detail-btn').forEach(button => {
+        button.removeEventListener('click', handleDetailClick);
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(button => {
         button.addEventListener('click', handleDeleteClick);
     });
-
-    // Event listener para botões de Editar
     document.querySelectorAll('.edit-btn').forEach(button => {
-        button.removeEventListener('click', handleEditClick); // Evita múltiplos listeners
         button.addEventListener('click', handleEditClick);
     });
+    document.querySelectorAll('.detail-btn').forEach(button => {
+        button.addEventListener('click', handleDetailClick);
+    });
+
+    document.getElementById('confirmDeleteBtn').removeEventListener('click', confirmDeleteProcessor);
+    document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDeleteProcessor);
 }
 
 function handleDeleteClick(event) {
-    const processorId = $(event.currentTarget).data('id'); // Pega o ID do atributo data-id
-    if (confirm('Tem certeza que deseja excluir este processador?')) {
-        deleteProcessor(processorId);
+    const processorId = $(event.currentTarget).data('id');
+    const processorName = $(event.currentTarget).closest('tr').find('td:first-child').text();
+
+    $('#deleteProcessorId').val(processorId);
+    $('#deleteProcessorName').text(processorName);
+
+    const modalInstance = M.Modal.getInstance(document.getElementById('deleteConfirmModal'));
+    if (modalInstance) {
+        modalInstance.open();
+    } else {
+        console.error("Materialize Modal instance not found for delete confirmation.");
+        M.toast({html: 'Erro ao abrir modal de confirmação de exclusão.', classes: 'red darken-2'});
     }
 }
 
 function handleEditClick(event) {
     const processorId = $(event.currentTarget).data('id');
-    const processor = allProcessors.find(proc => proc.id == processorId); // Encontra o processador pelo ID
+    const processor = allProcessors.find(proc => String(proc.id) === String(processorId));
 
     if (processor) {
-        // Preenche o modal com os dados do processador
-        $('#edit_processor_id').val(processor.id);
+        $('#edit_processor_id').val(String(processor.id));
         $('#edit_modelo').val(processor.modelo);
         $('#edit_marca').val(processor.marca);
         $('#edit_frequencia').val(processor.frequencia);
@@ -160,20 +178,40 @@ function handleEditClick(event) {
         $('#edit_threads').val(processor.threads);
         $('#edit_socket').val(processor.socket);
 
-        // Atualiza os labels dos campos Materialize para que o texto não sobreponha o valor
+        $('#edit_cacheL3').val(processor.cacheL3 || '');
+        $('#edit_tdp').val(processor.tdp || '');
+        $('#edit_litografia_nm').val(processor.litografia_nm || '');
+        $('#edit_ram_tipo').val(processor.ram_tipo || '');
+        $('#edit_ram_velocidade_max').val(processor.ram_velocidade_max || '');
+        $('#edit_ram_capacidade_max').val(processor.ram_capacidade_max || '');
+        $('#edit_graficos_integrados').val(processor.graficos_integrados || '');
+        $('#edit_data_lancamento').val(processor.data_lancamento || '');
+        $('#edit_pcie_versao').val(processor.pcie_versao || '');
+        $('#edit_pcie_pistas').val(processor.pcie_pistas || '');
+        $('#edit_tecnologias').val(processor.tecnologias ? processor.tecnologias.join(', ') : '');
+
         M.updateTextFields();
 
-        // Abre o modal de edição
         const modalInstance = M.Modal.getInstance(document.getElementById('editProcessorModal'));
-        modalInstance.open();
+        if (modalInstance) {
+            modalInstance.open();
+        } else {
+            console.error("Materialize Modal instance not found for edit.");
+            M.toast({html: 'Erro ao abrir modal de edição.', classes: 'red darken-2'});
+        }
     } else {
         M.toast({ html: 'Processador não encontrado para edição.', classes: 'red darken-2' });
     }
 }
 
-// Event listener para o botão "Salvar" dentro do modal de edição
+function handleDetailClick(event) {
+    const processorId = $(event.currentTarget).data('id');
+    window.location.href = `/app/pages/detalhes-processador/detalhes-processador.html?id=${processorId}`;
+}
+
+
 document.getElementById('saveEditBtn').addEventListener('click', function(e) {
-    e.preventDefault(); // Evita o comportamento padrão do botão
+    e.preventDefault();
 
     const processorId = $('#edit_processor_id').val();
     const modelo = $('#edit_modelo').val().trim();
@@ -183,8 +221,24 @@ document.getElementById('saveEditBtn').addEventListener('click', function(e) {
     const threadsInput = $('#edit_threads').val().trim();
     const socket = $('#edit_socket').val().trim();
 
-    if (!modelo || !marca || !frequencia || !nucleosInput || !threadsInput || !socket) {
-        M.toast({ html: "Por favor, preencha todos os campos do formulário de edição!", classes: "red darken-2" });
+    const cacheL3 = $('#edit_cacheL3').val().trim();
+    const tdp = $('#edit_tdp').val().trim();
+    const litografia_nm = $('#edit_litografia_nm').val().trim();
+    const ram_tipo = $('#edit_ram_tipo').val().trim();
+    const ram_velocidade_max = $('#edit_ram_velocidade_max').val().trim();
+    const ram_capacidade_max = $('#edit_ram_capacidade_max').val().trim();
+    const graficos_integrados = $('#edit_graficos_integrados').val().trim();
+    const data_lancamento = $('#edit_data_lancamento').val().trim();
+    const pcie_versao = $('#edit_pcie_versao').val().trim();
+    const pcie_pistas = $('#edit_pcie_pistas').val().trim();
+    const tecnologiasInput = $('#edit_tecnologias').val().trim();
+
+    if (!modelo || !marca || !frequencia || !nucleosInput || !threadsInput || !socket ||
+        !cacheL3 || !tdp || !litografia_nm || !ram_tipo || !ram_velocidade_max ||
+        !ram_capacidade_max || !graficos_integrados || !data_lancamento ||
+        !pcie_versao || !pcie_pistas || !tecnologiasInput)
+    {
+        M.toast({ html: "Por favor, preencha todos os campos obrigatórios do formulário de edição!", classes: "red darken-2" });
         return;
     }
 
@@ -196,50 +250,86 @@ document.getElementById('saveEditBtn').addEventListener('click', function(e) {
       return;
     }
 
+    const tecnologias = tecnologiasInput ? tecnologiasInput.split(',').map(tech => tech.trim()).filter(tech => tech !== '') : [];
+
+    const originalProcessor = allProcessors.find(proc => String(proc.id) === String(processorId));
+
+    if (!originalProcessor) {
+        M.toast({ html: "Erro: Processador original não encontrado para atualização.", classes: "red darken-2" });
+        return;
+    }
+
     const updatedProcessor = {
-        id: parseInt(processorId, 10), // O ID precisa ser mantido e enviado
+        ...originalProcessor,
+        id: String(processorId),
         modelo,
         marca,
         frequencia,
         nucleos,
         threads,
-        socket
+        socket,
+        cacheL3: cacheL3 || undefined,
+        tdp: tdp || undefined,
+        litografia_nm: litografia_nm || undefined,
+        ram_tipo: ram_tipo || undefined,
+        ram_velocidade_max: ram_velocidade_max || undefined,
+        ram_capacidade_max: ram_capacidade_max || undefined,
+        graficos_integrados: graficos_integrados || undefined,
+        data_lancamento: data_lancamento || undefined,
+        pcie_versao: pcie_versao || undefined,
+        pcie_pistas: pcie_pistas || undefined,
+        tecnologias: tecnologias.length > 0 ? tecnologias : undefined
     };
+
+    Object.keys(updatedProcessor).forEach(key => {
+        if (updatedProcessor[key] === undefined) {
+            delete updatedProcessor[key];
+        }
+    });
 
     updateProcessor(updatedProcessor);
 
-    // Fecha o modal após tentar salvar
     const modalInstance = M.Modal.getInstance(document.getElementById('editProcessorModal'));
-    modalInstance.close();
+    if (modalInstance) {
+        modalInstance.close();
+    }
 });
 
 
-// Função para excluir um processador
+function confirmDeleteProcessor() {
+    const processorId = $('#deleteProcessorId').val();
+    deleteProcessor(processorId);
+
+    const modalInstance = M.Modal.getInstance(document.getElementById('deleteConfirmModal'));
+    if (modalInstance) {
+        modalInstance.close();
+    }
+}
+
 function deleteProcessor(id) {
     $.ajax({
-        url: `http://localhost:3000/processadores/${id}`, // Endpoint DELETE com o ID
+        url: `http://localhost:3000/processadores/${id}`,
         method: 'DELETE',
         success: function() {
             M.toast({ html: 'Processador excluído com sucesso!', classes: 'green darken-2' });
-            fetchProcessorsAndRender(); // Recarrega a tabela após a exclusão
+            fetchProcessorsAndRender();
         },
         error: function(xhr, status, error) {
             console.error("Erro ao excluir processador:", error);
-            M.toast({ html: 'Erro ao excluir. Tente novamente.', classes: 'red darken-2' });
+            M.toast({ html: 'Erro ao excluir. Tente novamente.', classes: "red darken-2" });
         }
     });
 }
 
-// Função para atualizar um processador
 function updateProcessor(processor) {
     $.ajax({
-        url: `http://localhost:3000/processadores/${processor.id}`, // Endpoint PUT com o ID
-        method: 'PUT', // Método PUT para atualização completa do recurso
+        url: `http://localhost:3000/processadores/${processor.id}`,
+        method: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify(processor),
         success: function(response) {
             M.toast({ html: 'Processador atualizado com sucesso!', classes: 'green darken-2' });
-            fetchProcessorsAndRender(); // Recarrega a tabela após a atualização
+            fetchProcessorsAndRender();
         },
         error: function(xhr, status, error) {
             console.error("Erro ao atualizar processador:", error);

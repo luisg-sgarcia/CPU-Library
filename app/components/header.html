@@ -1,11 +1,21 @@
 <nav class="nav-wrapper" style="background-color: #212529;">
   <div class="container">
-    <a href="/index.html" class="brand-logo"><img src="/assets/resources/images/logotipo.svg" alt="logotipo" height="75px"></a>
+    <a href="/index.html" class="brand-logo responsive-logo">
+        <img src="/assets/resources/images/logotipo.svg" alt="logotipo">
+    </a>
+
+    <a href="#" data-target="nav-mobile-sidebar" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a href="/index.html">Home</a></li>
-      <li><a href="/index.html#catalogo">Catálogo</a></li>
       <li><a href="/app/pages/cadastro-processadores/cadastro-processadores.html">Cadastrar</a></li>
-      <li><a href="#">Sobre</a></li>
+      <li><a href="/app/pages/sobre/sobre.html">Sobre</a></li>
     </ul>
   </div>
 </nav>
+
+<ul id="nav-mobile-sidebar" class="sidenav">
+    <li><a href="/index.html">Home</a></li>
+    <li><a href="/app/pages/cadastro-processadores/cadastro-processadores.html">Cadastrar</a></li>
+    <li><a href="/app/pages/sobre/sobre.html">Sobre</a></li>
+</ul>

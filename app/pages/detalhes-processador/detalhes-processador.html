@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detalhes do Processador - CPU Library</title>
+  <link rel="stylesheet" href="/node_modules/materialize-css/dist/css/materialize.min.css" />
+  <link rel="stylesheet" href="/assets/resources/styles/style.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <style>
+    .processor-detail-card {
+      padding: 20px;
+      margin-top: 30px;
+    }
+    .detail-item {
+      margin-bottom: 10px;
+    }
+    .detail-item strong {
+      display: inline-block;
+      min-width: 150px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <main class="container">
+    <div class="card processor-detail-card">
+      <div class="card-content">
+        <h4 id="detail-modelo" class="center-align">Carregando...</h4>
+        <div class="divider"></div>
+        <div class="row" id="processor-details-content">
+          <p class="center-align" id="loading-message">Carregando detalhes do processador...</p>
+        </div>
+      </div>
+      <div class="card-action center-align">
+        <a href="/index.html" class="waves-effect waves-light btn"><i class="material-icons left">arrow_back</i>Voltar ao Catálogo</a>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="/node_modules/materialize-css/dist/js/materialize.min.js"></script>
+  <script src="/app/service/loader.js"></script>
+  <script src="./detalhes-processador.js"></script>
+</body>
+</html>

@@ -30,7 +30,7 @@
       <div class="row">
         <div class="input-field col s12 m6">
           <input id="frequencia" type="text" required />
-          <label for="frequencia">Frequência (ex: 3.5GHz)</label>
+          <label for="frequencia">Frequência (ex: 3.5 GHz)</label>
         </div>
         <div class="input-field col s6 m3">
           <input id="nucleos" type="number" required min="1" />
@@ -48,6 +48,68 @@
           <label for="socket">Socket</label>
         </div>
         <div class="input-field col s12 m6">
+          <input id="cacheL3" type="text" />
+          <label for="cacheL3">Cache L3 (ex: 36MB)</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="tdp" type="text" />
+          <label for="tdp">TDP (ex: 125W)</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <input id="litografia_nm" type="text" />
+          <label for="litografia_nm">Litografia (ex: 10nm)</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 m4">
+          <input id="ram_tipo" type="text" />
+          <label for="ram_tipo">RAM Tipo (ex: DDR5)</label>
+        </div>
+        <div class="input-field col s12 m4">
+          <input id="ram_velocidade_max" type="text" />
+          <label for="ram_velocidade_max">RAM Veloc. Máx. (ex: 5600MHz)</label>
+        </div>
+        <div class="input-field col s12 m4">
+          <input id="ram_capacidade_max" type="text" />
+          <label for="ram_capacidade_max">RAM Cap. Máx. (ex: 128GB)</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="graficos_integrados" type="text" />
+          <label for="graficos_integrados">Gráficos Integrados (ex: Intel UHD Graphics 770)</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <input id="data_lancamento" type="text" />
+          <label for="data_lancamento">Data de Lançamento (ex: Outubro 2023)</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="pcie_versao" type="text" />
+          <label for="pcie_versao">PCIe Versão (ex: 5.0)</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <input id="pcie_pistas" type="text" />
+          <label for="pcie_pistas">PCIe Pistas (ex: 20)</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="tecnologias" type="text" />
+          <label for="tecnologias">Tecnologias (separar por vírgula, ex: HT, TB 3.0)</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
           <button class="btn waves-effect waves-light" type="submit">
             Cadastrar
             <i class="material-icons right">send</i>

@@ -26,10 +26,12 @@
           <th>Núcleos</th>
           <th>Threads</th>
           <th>Socket</th>
-          <th>Ações</th> </tr>
+          <th>Ações</th> 
+        </tr>
       </thead>
       <tbody>
-        </tbody>
+        
+      </tbody>
     </table>
 
     <ul class="pagination center-align" id="pagination"></ul>
@@ -55,7 +57,7 @@
         <div class="row">
           <div class="input-field col s12 m6">
             <input id="edit_frequencia" type="text" required />
-            <label for="edit_frequencia">Frequência (ex: 3.5GHz)</label>
+            <label for="edit_frequencia">Frequência (ex: 3.5 GHz)</label>
           </div>
           <div class="input-field col s6 m3">
             <input id="edit_nucleos" type="number" required min="1" />
@@ -68,18 +70,93 @@
         </div>
 
         <div class="row">
-          <div class="input-field col s12">
+          <div class="input-field col s12 m6">
             <input id="edit_socket" type="text" required />
             <label for="edit_socket">Socket</label>
           </div>
+          <div class="input-field col s12 m6">
+            <input id="edit_cacheL3" type="text" />
+            <label for="edit_cacheL3">Cache L3 (ex: 36MB)</label>
+          </div>
         </div>
-        <input type="hidden" id="edit_processor_id"> </form>
+
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input id="edit_tdp" type="text" />
+            <label for="edit_tdp">TDP (ex: 125W)</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <input id="edit_litografia_nm" type="text" />
+            <label for="edit_litografia_nm">Litografia (ex: 10nm)</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12 m4">
+            <input id="edit_ram_tipo" type="text" />
+            <label for="edit_ram_tipo">RAM Tipo (ex: DDR5)</label>
+          </div>
+          <div class="input-field col s12 m4">
+            <input id="edit_ram_velocidade_max" type="text" />
+            <label for="edit_ram_velocidade_max">RAM Veloc. Máx. (ex: 5600MHz)</label>
+          </div>
+          <div class="input-field col s12 m4">
+            <input id="edit_ram_capacidade_max" type="text" />
+            <label for="edit_ram_capacidade_max">RAM Cap. Máx. (ex: 128GB)</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input id="edit_graficos_integrados" type="text" />
+            <label for="edit_graficos_integrados">Gráficos Integrados (ex: Intel UHD Graphics 770)</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <input id="edit_data_lancamento" type="text" />
+            <label for="edit_data_lancamento">Data de Lançamento (ex: Outubro 2023)</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input id="edit_pcie_versao" type="text" />
+            <label for="edit_pcie_versao">PCIe Versão (ex: 5.0)</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <input id="edit_pcie_pistas" type="text" />
+            <label for="edit_pcie_pistas">PCIe Pistas (ex: 20)</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="edit_tecnologias" type="text" />
+            <label for="edit_tecnologias">Tecnologias (separar por vírgula, ex: HT, TB 3.0)</label>
+          </div>
+        </div>
+        <input type="hidden" id="edit_processor_id"> 
+      </form>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
       <button class="btn waves-effect waves-light" type="submit" id="saveEditBtn">
         Salvar
         <i class="material-icons right">send</i>
+      </button>
+    </div>
+  </div>
+
+  <div id="deleteConfirmModal" class="modal">
+    <div class="modal-content">
+      <h4>Confirmar Exclusão</h4>
+      <p>Tem certeza que deseja excluir o processador <strong id="deleteProcessorName"></strong>?</p>
+      <input type="hidden" id="deleteProcessorId">
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+      <button class="btn waves-effect waves-light red darken-2" type="button" id="confirmDeleteBtn">
+        Excluir
+        <i class="material-icons right">delete</i>
       </button>
     </div>
   </div>
