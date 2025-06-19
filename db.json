@@ -2355,5 +2355,99 @@
         "AMD EXPO"
       ]
     }
+  ],
+  "marcas": [
+    {
+      "id": "1",
+      "nome": "Intel"
+    },
+    {
+      "id": "2",
+      "nome": "AMD"
+    }
+  ],
+  "sockets": [
+    {
+      "id": "s1",
+      "nome": "LGA 1150"
+    },
+    {
+      "id": "s2",
+      "nome": "LGA 1151"
+    },
+    {
+      "id": "s3",
+      "nome": "LGA 1200"
+    },
+    {
+      "id": "s4",
+      "nome": "LGA 1700"
+    },
+    {
+      "id": "s5",
+      "nome": "LGA 1851"
+    },
+    {
+      "id": "s6",
+      "nome": "AM4"
+    },
+    {
+      "id": "s7",
+      "nome": "AM5"
+    },
+    {
+      "id": "s8",
+      "nome": "TR4"
+    },
+    {
+      "id": "s9",
+      "nome": "sTR5"
+    },
+    {
+      "id": "s10",
+      "nome": "FCBGA1440"
+    },
+    {
+      "id": "s11",
+      "nome": "FP6"
+    },
+    {
+      "id": "s12",
+      "nome": "BGA 1964"
+    },
+    {
+      "id": "s13",
+      "nome": "BGA 2049"
+    },
+    {
+      "id": "s14",
+      "nome": "Outro"
+    }
+  ],
+  "ram_tipos": [
+    {
+      "id": "r1",
+      "nome": "DDR3"
+    },
+    {
+      "id": "r2",
+      "nome": "DDR3L"
+    },
+    {
+      "id": "r3",
+      "nome": "DDR4"
+    },
+    {
+      "id": "r4",
+      "nome": "DDR5"
+    },
+    {
+      "id": "r5",
+      "nome": "LPDDR5"
+    },
+    {
+      "id": "r6",
+      "nome": "LPDDR5X"
+    }
   ]
 }

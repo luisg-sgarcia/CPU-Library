@@ -172,16 +172,18 @@ function handleEditClick(event) {
     if (processor) {
         $('#edit_processor_id').val(String(processor.id));
         $('#edit_modelo').val(processor.modelo);
-        $('#edit_marca').val(processor.marca);
+        // Chamar loadSelectOptions para 'marca' e definir o valor
+        loadSelectOptions('edit_marca', 'marcas', processor.marca);
         $('#edit_frequencia').val(processor.frequencia);
         $('#edit_nucleos').val(processor.nucleos);
         $('#edit_threads').val(processor.threads);
-        $('#edit_socket').val(processor.socket);
-
+        // Chamar loadSelectOptions para 'socket' e definir o valor
+        loadSelectOptions('edit_socket', 'sockets', processor.socket);
         $('#edit_cacheL3').val(processor.cacheL3 || '');
         $('#edit_tdp').val(processor.tdp || '');
         $('#edit_litografia_nm').val(processor.litografia_nm || '');
-        $('#edit_ram_tipo').val(processor.ram_tipo || '');
+        // Chamar loadSelectOptions para 'ram_tipo' e definir o valor
+        loadSelectOptions('edit_ram_tipo', 'ram_tipos', processor.ram_tipo);
         $('#edit_ram_velocidade_max').val(processor.ram_velocidade_max || '');
         $('#edit_ram_capacidade_max').val(processor.ram_capacidade_max || '');
         $('#edit_graficos_integrados').val(processor.graficos_integrados || '');
@@ -191,6 +193,8 @@ function handleEditClick(event) {
         $('#edit_tecnologias').val(processor.tecnologias ? processor.tecnologias.join(', ') : '');
 
         M.updateTextFields();
+        // A chamada $('select').formSelect(); dentro de loadSelectOptions já lida com a inicialização.
+        // Não é necessário chamar aqui novamente a menos que haja outros selects não gerenciados por loadSelectOptions.
 
         const modalInstance = M.Modal.getInstance(document.getElementById('editProcessorModal'));
         if (modalInstance) {
@@ -248,6 +252,18 @@ document.getElementById('saveEditBtn').addEventListener('click', function(e) {
     if (isNaN(nucleos) || nucleos < 1 || isNaN(threads) || threads < 1) {
       M.toast({ html: "Núcleos e Threads devem ser números válidos maiores que zero na edição!", classes: "red darken-2" });
       return;
+    }
+
+    const regexFrequencia = /^\d+(\.\d+)?\sGHz$/;
+    if (frequencia && !regexFrequencia.test(frequencia)) {
+      M.toast({ html: "Formato de Frequência inválido (ex: '3.5 GHz')!", classes: "red darken-2" });
+      return;
+    }
+
+    const regexDataLancamento = /^[A-Za-z]+\s\d{4}$/;
+    if (data_lancamento && !regexDataLancamento.test(data_lancamento)) {
+        M.toast({ html: "Formato de Data de Lançamento inválido (ex: 'Janeiro 2023')!", classes: "red darken-2" });
+        return;
     }
 
     const tecnologias = tecnologiasInput ? tecnologiasInput.split(',').map(tech => tech.trim()).filter(tech => tech !== '') : [];

@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
-    M.AutoInit();
-    M.updateTextFields();
+    M.AutoInit(); // Inicializa todos os componentes Materialize (incluindo selects)
+
+    // NOVO: Carrega as opções para os selects ao carregar a página
+    loadSelectOptions('marca', 'marcas');
+    loadSelectOptions('socket', 'sockets');
+    loadSelectOptions('ram_tipo', 'ram_tipos');
 });
 
 
@@ -8,16 +12,16 @@ document.getElementById("cpu-form").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const modelo = $("#modelo").val().trim();
-  const marca = $("#marca").val().trim();
+  const marca = $("#marca").val().trim(); // Agora pega do select
   const frequencia = $("#frequencia").val().trim();
   const nucleosInput = $("#nucleos").val().trim();
   const threadsInput = $("#threads").val().trim();
-  const socket = $("#socket").val().trim();
+  const socket = $("#socket").val().trim(); // Agora pega do select
 
   const cacheL3 = $("#cacheL3").val().trim();
   const tdp = $("#tdp").val().trim();
   const litografia_nm = $("#litografia_nm").val().trim();
-  const ram_tipo = $("#ram_tipo").val().trim();
+  const ram_tipo = $("#ram_tipo").val().trim(); // Agora pega do select
   const ram_velocidade_max = $("#ram_velocidade_max").val().trim();
   const ram_capacidade_max = $("#ram_capacidade_max").val().trim();
   const graficos_integrados = $("#graficos_integrados").val().trim();
@@ -26,8 +30,13 @@ document.getElementById("cpu-form").addEventListener("submit", function (e) {
   const pcie_pistas = $("#pcie_pistas").val().trim();
   const tecnologiasInput = $("#tecnologias").val().trim();
 
-  if (!modelo || !marca || !frequencia || !nucleosInput || !threadsInput || !socket) {
-    M.toast({ html: "Por favor, preencha os campos obrigatórios: Modelo, Marca, Frequência, Núcleos, Threads, Socket!", classes: "red darken-2" });
+  // Validação para campos obrigatórios (inclui os selects)
+  if (!modelo || !marca || !frequencia || !nucleosInput || !threadsInput || !socket ||
+      !marca || marca === '' || // Valida se a marca foi selecionada
+      !socket || socket === '' || // Valida se o socket foi selecionado
+      !ram_tipo || ram_tipo === '' // Valida se o tipo de RAM foi selecionado
+    ) {
+    M.toast({ html: "Por favor, preencha todos os campos obrigatórios: Modelo, Marca, Frequência, Núcleos, Threads, Socket, RAM Tipo!", classes: "red darken-2" });
     return;
   }
 
@@ -37,6 +46,18 @@ document.getElementById("cpu-form").addEventListener("submit", function (e) {
   if (isNaN(nucleos) || nucleos < 1 || isNaN(threads) || threads < 1) {
     M.toast({ html: "Núcleos e Threads devem ser números válidos maiores que zero!", classes: "red darken-2" });
     return;
+  }
+
+  const regexFrequencia = /^\d+(\.\d+)?\sGHz$/;
+  if (frequencia && !regexFrequencia.test(frequencia)) {
+    M.toast({ html: "Formato de Frequência inválido (ex: '3.5 GHz')!", classes: "red darken-2" });
+    return;
+  }
+
+  const regexDataLancamento = /^[A-Za-z]+\s\d{4}$/;
+  if (data_lancamento && !regexDataLancamento.test(data_lancamento)) {
+      M.toast({ html: "Formato de Data de Lançamento inválido (ex: 'Janeiro 2023')!", classes: "red darken-2" });
+      return;
   }
 
   const tecnologias = tecnologiasInput ? tecnologiasInput.split(',').map(tech => tech.trim()).filter(tech => tech !== '') : [];
@@ -103,6 +124,8 @@ document.getElementById("cpu-form").addEventListener("submit", function (e) {
               success: function(response) {
                 M.toast({ html: "Processador cadastrado com sucesso!", classes: "green darken-2" });
                 $("#cpu-form")[0].reset();
+                // Opcional: Re-inicializar selects após reset, se necessário (materialize geralmente mantém o placeholder)
+                $('select').formSelect();
               },
               error: function(xhr, status, error) {
                 console.error("Erro ao cadastrar processador:", error);

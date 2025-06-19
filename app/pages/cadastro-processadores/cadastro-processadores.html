@@ -22,14 +22,16 @@
           <label for="modelo">Modelo</label>
         </div>
         <div class="input-field col s12 m6">
-          <input id="marca" type="text" required />
+          <select id="marca" required>
+            <option value="" disabled selected>Selecione a Marca</option>
+            </select>
           <label for="marca">Marca</label>
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s12 m6">
-          <input id="frequencia" type="text" required />
+          <input id="frequencia" type="text" required pattern="^\d+(\.\d+)?\sGHz$" title="Formato: X.X GHz (ex: 3.5 GHz)" />
           <label for="frequencia">Frequência (ex: 3.5 GHz)</label>
         </div>
         <div class="input-field col s6 m3">
@@ -44,7 +46,9 @@
 
       <div class="row">
         <div class="input-field col s12 m6">
-          <input id="socket" type="text" required />
+          <select id="socket" required>
+            <option value="" disabled selected>Selecione o Socket</option>
+            </select>
           <label for="socket">Socket</label>
         </div>
         <div class="input-field col s12 m6">
@@ -66,8 +70,10 @@
 
       <div class="row">
         <div class="input-field col s12 m4">
-          <input id="ram_tipo" type="text" />
-          <label for="ram_tipo">RAM Tipo (ex: DDR5)</label>
+          <select id="ram_tipo">
+            <option value="" disabled selected>Tipo de RAM</option>
+            </select>
+          <label for="ram_tipo">RAM Tipo</label>
         </div>
         <div class="input-field col s12 m4">
           <input id="ram_velocidade_max" type="text" />
@@ -85,7 +91,7 @@
           <label for="graficos_integrados">Gráficos Integrados (ex: Intel UHD Graphics 770)</label>
         </div>
         <div class="input-field col s12 m6">
-          <input id="data_lancamento" type="text" />
+          <input id="data_lancamento" type="text" pattern="^[A-Za-z]+\s\d{4}$" title="Formato: Mês Ano (ex: Outubro 2023)"/>
           <label for="data_lancamento">Data de Lançamento (ex: Outubro 2023)</label>
         </div>
       </div>
@@ -124,6 +130,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="/node_modules/materialize-css/dist/js/materialize.min.js"></script>
   <script src="/app/service/loader.js"></script>
-  <script src="./cadastro-processadores.js"></script>
+  <script src="/app/service/utils.js"></script> <script src="./cadastro-processadores.js"></script>
 </body>
 </html>

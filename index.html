@@ -40,111 +40,117 @@
   <div id="footer"></div>
 
   <div id="editProcessorModal" class="modal">
-    <div class="modal-content">
-      <h4>Editar Processador</h4>
-      <form id="edit-cpu-form">
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input id="edit_modelo" type="text" required />
-            <label for="edit_modelo">Modelo</label>
-          </div>
-          <div class="input-field col s12 m6">
-            <input id="edit_marca" type="text" required />
-            <label for="edit_marca">Marca</label>
-          </div>
+  <div class="modal-content">
+    <h4>Editar Processador</h4>
+    <form id="edit-cpu-form">
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="edit_modelo" type="text" required />
+          <label for="edit_modelo">Modelo</label>
         </div>
+        <div class="input-field col s12 m6">
+          <select id="edit_marca" required>
+            <option value="" disabled selected>Selecione a Marca</option>
+            </select>
+          <label for="edit_marca">Marca</label>
+        </div>
+      </div>
 
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input id="edit_frequencia" type="text" required />
-            <label for="edit_frequencia">Frequência (ex: 3.5 GHz)</label>
-          </div>
-          <div class="input-field col s6 m3">
-            <input id="edit_nucleos" type="number" required min="1" />
-            <label for="edit_nucleos">Núcleos</label>
-          </div>
-          <div class="input-field col s6 m3">
-            <input id="edit_threads" type="number" required min="1" />
-            <label for="edit_threads">Threads</label>
-          </div>
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="edit_frequencia" type="text" required pattern="^\d+(\.\d+)?\sGHz$" title="Formato: X.X GHz (ex: 3.5 GHz)" />
+          <label for="edit_frequencia">Frequência (ex: 3.5 GHz)</label>
         </div>
+        <div class="input-field col s6 m3">
+          <input id="edit_nucleos" type="number" required min="1" />
+          <label for="edit_nucleos">Núcleos</label>
+        </div>
+        <div class="input-field col s6 m3">
+          <input id="edit_threads" type="number" required min="1" />
+          <label for="edit_threads">Threads</label>
+        </div>
+      </div>
 
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input id="edit_socket" type="text" required />
-            <label for="edit_socket">Socket</label>
-          </div>
-          <div class="input-field col s12 m6">
-            <input id="edit_cacheL3" type="text" />
-            <label for="edit_cacheL3">Cache L3 (ex: 36MB)</label>
-          </div>
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <select id="edit_socket" required>
+            <option value="" disabled selected>Selecione o Socket</option>
+            </select>
+          <label for="edit_socket">Socket</label>
         </div>
+        <div class="input-field col s12 m6">
+          <input id="edit_cacheL3" type="text" />
+          <label for="edit_cacheL3">Cache L3 (ex: 36MB)</label>
+        </div>
+      </div>
 
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input id="edit_tdp" type="text" />
-            <label for="edit_tdp">TDP (ex: 125W)</label>
-          </div>
-          <div class="input-field col s12 m6">
-            <input id="edit_litografia_nm" type="text" />
-            <label for="edit_litografia_nm">Litografia (ex: 10nm)</label>
-          </div>
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="edit_tdp" type="text" />
+          <label for="edit_tdp">TDP (ex: 125W)</label>
         </div>
+        <div class="input-field col s12 m6">
+          <input id="edit_litografia_nm" type="text" />
+          <label for="edit_litografia_nm">Litografia (ex: 10nm)</label>
+        </div>
+      </div>
 
-        <div class="row">
-          <div class="input-field col s12 m4">
-            <input id="edit_ram_tipo" type="text" />
-            <label for="edit_ram_tipo">RAM Tipo (ex: DDR5)</label>
-          </div>
-          <div class="input-field col s12 m4">
-            <input id="edit_ram_velocidade_max" type="text" />
-            <label for="edit_ram_velocidade_max">RAM Veloc. Máx. (ex: 5600MHz)</label>
-          </div>
-          <div class="input-field col s12 m4">
-            <input id="edit_ram_capacidade_max" type="text" />
-            <label for="edit_ram_capacidade_max">RAM Cap. Máx. (ex: 128GB)</label>
-          </div>
+      <div class="row">
+        <div class="input-field col s12 m4">
+          <select id="edit_ram_tipo">
+            <option value="" disabled selected>Tipo de RAM</option>
+            </select>
+          <label for="edit_ram_tipo">RAM Tipo</label>
         </div>
+        <div class="input-field col s12 m4">
+          <input id="edit_ram_velocidade_max" type="text" />
+          <label for="edit_ram_velocidade_max">RAM Veloc. Máx. (ex: 5600MHz)</label>
+        </div>
+        <div class="input-field col s12 m4">
+          <input id="edit_ram_capacidade_max" type="text" />
+          <label for="edit_ram_capacidade_max">RAM Cap. Máx. (ex: 128GB)</label>
+        </div>
+      </div>
 
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input id="edit_graficos_integrados" type="text" />
-            <label for="edit_graficos_integrados">Gráficos Integrados (ex: Intel UHD Graphics 770)</label>
-          </div>
-          <div class="input-field col s12 m6">
-            <input id="edit_data_lancamento" type="text" />
-            <label for="edit_data_lancamento">Data de Lançamento (ex: Outubro 2023)</label>
-          </div>
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="edit_graficos_integrados" type="text" />
+          <label for="edit_graficos_integrados">Gráficos Integrados (ex: Intel UHD Graphics 770)</label>
         </div>
+        <div class="input-field col s12 m6">
+          <input id="edit_data_lancamento" type="text" pattern="^[A-Za-z]+\s\d{4}$" title="Formato: Mês Ano (ex: Outubro 2023)"/>
+          <label for="edit_data_lancamento">Data de Lançamento (ex: Outubro 2023)</label>
+        </div>
+      </div>
 
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input id="edit_pcie_versao" type="text" />
-            <label for="edit_pcie_versao">PCIe Versão (ex: 5.0)</label>
-          </div>
-          <div class="input-field col s12 m6">
-            <input id="edit_pcie_pistas" type="text" />
-            <label for="edit_pcie_pistas">PCIe Pistas (ex: 20)</label>
-          </div>
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="edit_pcie_versao" type="text" />
+          <label for="edit_pcie_versao">PCIe Versão (ex: 5.0)</label>
         </div>
+        <div class="input-field col s12 m6">
+          <input id="edit_pcie_pistas" type="text" />
+          <label for="edit_pcie_pistas">PCIe Pistas (ex: 20)</label>
+        </div>
+      </div>
 
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="edit_tecnologias" type="text" />
-            <label for="edit_tecnologias">Tecnologias (separar por vírgula, ex: HT, TB 3.0)</label>
-          </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="edit_tecnologias" type="text" />
+          <label for="edit_tecnologias">Tecnologias (separar por vírgula, ex: HT, TB 3.0)</label>
         </div>
-        <input type="hidden" id="edit_processor_id"> 
-      </form>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
-      <button class="btn waves-effect waves-light" type="submit" id="saveEditBtn">
-        Salvar
-        <i class="material-icons right">send</i>
-      </button>
-    </div>
+      </div>
+      <input type="hidden" id="edit_processor_id"> 
+    </form>
   </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+    <button class="btn waves-effect waves-light" type="submit" id="saveEditBtn">
+      Salvar
+      <i class="material-icons right">send</i>
+    </button>
+  </div>
+</div>
 
   <div id="deleteConfirmModal" class="modal">
     <div class="modal-content">
@@ -157,14 +163,17 @@
       <button class="btn waves-effect waves-light red darken-2" type="button" id="confirmDeleteBtn">
         Excluir
         <i class="material-icons right">delete</i>
-      </button>
+      </button> 
     </div>
   </div>
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="/node_modules/materialize-css/dist/js/materialize.min.js"></script>
+  <script src="/app/service/utils.js"></script> 
   <script src="/app/service/render.js"></script>
   <script src="/app/service/loader.js"></script>
+</body>
+</html>
 </body>
 </html>
